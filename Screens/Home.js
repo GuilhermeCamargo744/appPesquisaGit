@@ -1,52 +1,59 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { 
 	StatusBar,
-	StyleSheet,
 	Text, 
 	View, 
 	SafeAreaView, 
 	TextInput, 
 	TouchableOpacity, 
 	ScrollView,
+	Animated
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Modalize } from 'react-native-modalize';
 import axios from "axios";
+import style from '../styles/styleHome';
 
 
-
-function Home() {
+export default function Home(props) {
+	const [offset] = useState(new Animated.ValueXY({x: 0, y:200}));
 	const [nome, setNome] = useState([])
 	const [posts, setPosts] = useState([])
-	const [res, setarTexto] = useState(0);
 
 async function pesquisar(){
 	axios.get(`https://api.github.com/users/${nome}/repos`)
 	.then((response) =>{
 		setPosts(response.data)
 	})
-	.catch(() =>{
-		console.log("Repositório não encontrado!")
+	.catch((error) =>{
+		alert('Repositório não encontrado!')
+		console.log(error)
 	})
 
 }
 	
-			
-
-
-
-
-	
-	
+	useEffect(() =>{
+		Animated.spring(offset.y, {
+			toValue: 0,
+			speed: 0.5,
+		}).start();
+	}, [])
 
 	return (
 		<SafeAreaView style={style.container}>
 			<StatusBar 
 			hidden={true}
 			/>
-			
-				<ScrollView>
+				<Animated.ScrollView style={[
+				
+				{
+					transform:[
+						
+							{ translateY: offset.y}
+						
+					]
+				}
+			]}>
 					<View style={style.cabec}>
 						<FontAwesome5 name="github" size={70} color="#FFF" />
 					</View>
@@ -76,90 +83,36 @@ async function pesquisar(){
 					<View>
 						{posts.map((post, key) =>{
 							return(
-							<TouchableOpacity onPress={()=>{
-								
-								}}>
-								<View style={style.modalView} key={post.id}>
-									<FontAwesome5 name="github" size={50} color="#722FE0" />
-									<Text style={style.modalText}>{post.name}</Text>
-								</View>
-							</TouchableOpacity>
+								<Animated.View style={{flex: 1, alignItems: 'center'}}>
+									<TouchableOpacity onPress={()=> 
+									props.navigation.navigate('Detalhes', 
+									{nome: post.name, 
+									descricao: post.description,
+									login: post.owner.login,
+									avatar: post.owner.avatar_url,
+									issues: post.issues_url,
+									linguagem: post.language
+									})}>
+										<View style={style.modalView} key={post.id}>
+											<FontAwesome5 name="github" size={50} color="#722FE0" />
+											<Text style={style.modalText}>{post.name}</Text>
+										</View>
+									</TouchableOpacity>
+								</Animated.View>
+							
 							)
 						})}
 					</View>
-					
-				</ScrollView>
+				</Animated.ScrollView>
+			
 			<View style={style.footer}></View>
 		</SafeAreaView>
 	)
 }
 
 
-const style = StyleSheet.create({
-	container:{
-		flex: 1,
-	},
-	cabec:{
-		flex: 1,
-		flexDirection: 'row',
-		backgroundColor: "#722FE0",
-		borderBottomLeftRadius: 20,
-		borderBottomRightRadius: 20,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	pesqui:{
-		flex: 3,
-	},
-	texto1:{
-		fontWeight: 'bold',
-		color: "#722FE0",
-		marginTop: 30,
-		marginLeft: 30,
-		fontSize: 25
-	},
-	texto2:{
-		fontWeight: 'bold',
-		color: "#722FE0",
-		marginLeft: 40,
-		fontSize: 25
-	},
-	input:{
-		backgroundColor: '#eee',
-		height: 40,
-		paddingHorizontal: 1,
-		margin: 10,
-		marginTop: 30,
-		borderRadius: 7
-	},
-	search:{
-		alignItems: 'center'
-	},
-	footer:{
-		backgroundColor: "#722FE0",
-		padding: 20,
-		borderTopLeftRadius: 20,
-		borderTopRightRadius: 20
-	},
-	modalView:{
-		backgroundColor: "#eee",
-		flex: 1,
-		margin: 20,
-		borderRadius: 10,
-		height: 150,
-		width: 230,
-		justifyContent: 'center',
-		alignItems: 'center'
-		
-	},
-	modalText:{
-		fontWeight: 'bold',
-		color: '#722FE0',
-		fontSize: 20,
-		textAlign: 'center'
-	}
-
-})
 
 
-export default Home
+
+
+
