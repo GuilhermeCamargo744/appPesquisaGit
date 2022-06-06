@@ -1,3 +1,5 @@
+/* Feito por Guilherme Henrique de Camargo e Silva */
+
 import React, {useState, useEffect} from 'react'
 import { 
 	StatusBar,
@@ -111,7 +113,7 @@ async function pesquisar(){
 }
 
 
-
+/* Feito por Guilherme Henrique de Camargo e Silva */
 
 
 

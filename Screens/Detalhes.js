@@ -1,3 +1,5 @@
+/* Feito por Guilherme Henrique de Camargo e Silva */
+
 import React,{useState} from 'react'
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import axios from 'axios';
@@ -73,5 +75,5 @@ export default function Detalhes (props) {
 	}
 
 
-
+/* Feito por Guilherme Henrique de Camargo e Silva */
 

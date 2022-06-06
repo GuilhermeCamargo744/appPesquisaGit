@@ -1,3 +1,5 @@
+/* Feito por Guilherme Henrique de Camargo e Silva */
+
 import React from "react"
 import { StyleSheet } from 'react-native'
 
