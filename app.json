@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "App-Arcos-V2",
-    "slug": "App-Arcos-V2",
+    "name": "appTesteNoli",
+    "slug": "appTesteNoli",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
