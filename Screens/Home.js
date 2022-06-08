@@ -44,7 +44,8 @@ async function pesquisar(){
 	return (
 		<SafeAreaView style={style.container}>
 			<StatusBar 
-			backgroundColor={"#722FE0"}
+			barStyle="light-content"
+			backgroundColor="#722FE0"
 			/>
 				<Animated.ScrollView style={[
 				
