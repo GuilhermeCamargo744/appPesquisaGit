@@ -1,7 +1,7 @@
 /* Feito por Guilherme Henrique de Camargo e Silva */
 
 import React,{useState} from 'react'
-import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import axios from 'axios';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import style from '../styles/styleDetalhes';
@@ -41,6 +41,12 @@ export default function Detalhes (props) {
 						<Text style={style.titulo}>Nome diretório:</Text>
 						<Text style={style.texto}>{props.route.params.nome}</Text>
 					</View>
+					<View style={style.View}>
+						<Text style={style.titulo}>avatar:</Text>
+						<View style={style.ViewAvatar}>
+							<Image style={style.ImageAvatar} source={{uri :props.route.params.avatar}}/>
+						</View>
+					</View>
 					<View style={style.View}>	
 						<Text style={style.titulo}>Descrição:</Text>
 						<Text style={style.texto}>{props.route.params.descricao}</Text>
@@ -49,14 +55,11 @@ export default function Detalhes (props) {
 						<Text style={style.titulo}>Login:</Text>
 						<Text style={style.texto}>{props.route.params.login}</Text>
 					</View>
-					<View style={style.View}>
-						<Text style={style.titulo}>avatar:</Text>
-						<Text style={style.texto}>{props.route.params.avatar}</Text>
-					</View>
+					
 					<TouchableOpacity onPress={()=>{
 						return(
 						<WebView
-						source={{ uri: url}}
+						source={{uri: url}}
 						/>
 					)
 					}}>

@@ -37,6 +37,15 @@ const style = StyleSheet.create({
 	voltar:{
 		color: '#722FE0',
 		fontWeight: 'bold',
+	},
+	ViewAvatar:{
+		flex: 1
+	},
+	ImageAvatar:{
+		flex: 2,
+		width: 200,
+		margin: 15,
+		borderRadius: 15
 	}
 })
 
